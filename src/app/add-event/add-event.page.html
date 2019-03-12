@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start" defaultHref="/home/">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Добавляем спил</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <form (ngSubmit)="save()">
+        <ion-list>
+            <ion-item>
+                <ion-label floating>Где пилим</ion-label>
+                <ion-input type="text" [(ngModel)]="event.location" name="event.location"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Что пилим</ion-label>
+                <ion-input type="text" [(ngModel)]="event.description" name="event.description"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>У кого пилим</ion-label>
+                <ion-input type="text" [(ngModel)]="event.name" name="event.name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Куда звонить</ion-label>
+                <ion-input type="phone" [(ngModel)]="event.phone" name="event.phone"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Начало спила</ion-label>
+                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="MM/DD/YYYY" [(ngModel)]="event.startDate" name="event.startDate"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Закончим спил</ion-label>
+                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="MM/DD/YYYY" [(ngModel)]="event.endDate" name="event.endDate"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <button ion-button type="Submit" full round>Записать</button>
+            </ion-item>
+        </ion-list>
+    </form>
+</ion-content>
