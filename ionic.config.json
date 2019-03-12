@@ -1,5 +1,7 @@
 {
   "name": "calendare",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
