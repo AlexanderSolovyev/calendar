@@ -17,7 +17,7 @@ import { NgCalendarModule } from 'ionic2-calendar';
       {
         path: '',
         component: HomePage
-      },
+      }
     ])
   ],
   declarations: [HomePage]

@@ -8,34 +8,38 @@
 </ion-header>
 
 <ion-content padding>
-    <form (ngSubmit)="save()">
+    <form [formGroup]="new_event_form" (submit)="createEvent(new_event_form.value)">
         <ion-list>
             <ion-item>
-                <ion-label floating>Где пилим</ion-label>
-                <ion-input type="text" [(ngModel)]="event.location" name="event.location"></ion-input>
+                <ion-label position="floating">Где пилим</ion-label>
+                <ion-input type="text" formControlName="title" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label floating>Что пилим</ion-label>
-                <ion-input type="text" [(ngModel)]="event.description" name="event.description"></ion-input>
+                <ion-label position="floating">Что пилим</ion-label>
+                <ion-input type="text" formControlName="description" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label floating>У кого пилим</ion-label>
-                <ion-input type="text" [(ngModel)]="event.name" name="event.name"></ion-input>
+                <ion-label position="floating">У кого пилим</ion-label>
+                <ion-input type="text" formControlName="name" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label floating>Куда звонить</ion-label>
-                <ion-input type="phone" [(ngModel)]="event.phone" name="event.phone"></ion-input>
+                <ion-label position="floating">Куда звонить</ion-label>
+                <ion-input type="phone" formControlName="phone" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label floating>Начало спила</ion-label>
-                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="MM/DD/YYYY" [(ngModel)]="event.startDate" name="event.startDate"></ion-datetime>
+                <ion-label position="floating">Когда спил </ion-label>
+                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="MM/DD/YYYY" formControlName="startDay" required></ion-datetime>
             </ion-item>
             <ion-item>
-                <ion-label floating>Закончим спил</ion-label>
-                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="MM/DD/YYYY" [(ngModel)]="event.endDate" name="event.endDate"></ion-datetime>
+                <ion-label position="floating">Старт спила</ion-label>
+                <ion-datetime displayFormat="HH:mm" pickerFormat="HH/mm" formControlName="startTime"></ion-datetime>
             </ion-item>
             <ion-item>
-                <button ion-button type="Submit" full round>Записать</button>
+                <ion-label position="floating">Спилу конец</ion-label>
+                <ion-datetime displayFormat="HH:mm" pickerFormat="HH/mm" formControlName="endTime"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!new_event_form.valid">Записать</ion-button>
             </ion-item>
         </ion-list>
     </form>

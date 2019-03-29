@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ApiService, Event } from '../api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -41,13 +43,21 @@ export class HomePage {
           }
       }
   };
+  events: Event[];
+  constructor( public apiService: ApiService,
+     private router: Router) {
+  }
 
-  constructor() {
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngOnInit() {
+      this.events = this.apiService.getEvents();
+      this.eventSource = this.events;
 
   }
 
   loadEvents() {
-      this.eventSource = this.createRandomEvents();
+      this.eventSource = this.events;
+      console.log(this.eventSource);
   }
 
   onViewTitleChanged(title) {
@@ -56,6 +66,7 @@ export class HomePage {
 
   onEventSelected(event) {
       console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
+      this.router.navigateByUrl(`/add-event/` + event.id);
   }
 
   changeMode(mode) {
@@ -76,43 +87,6 @@ export class HomePage {
       today.setHours(0, 0, 0, 0);
       event.setHours(0, 0, 0, 0);
       this.isToday = today.getTime() === event.getTime();
-  }
-
-  createRandomEvents() {
-      const events = [];
-      for (let i = 0; i < 50; i += 1) {
-          const date = new Date();
-          const eventType = Math.floor(Math.random() * 2);
-          const startDay = Math.floor(Math.random() * 90) - 45;
-          let endDay = Math.floor(Math.random() * 2) + startDay;
-          let startTime;
-          let endTime;
-          if (eventType === 0) {
-              startTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + startDay));
-              if (endDay === startDay) {
-                  endDay += 1;
-              }
-              endTime = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + endDay));
-              events.push({
-                  title: 'All Day - ' + i,
-                  startTime: startTime,
-                  endTime: endTime,
-                  allDay: true
-              });
-          } else {
-              const startMinute = Math.floor(Math.random() * 24 * 60);
-              const endMinute = Math.floor(Math.random() * 180) + startMinute;
-              startTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + startDay, 0, date.getMinutes() + startMinute);
-              endTime = new Date(date.getFullYear(), date.getMonth(), date.getDate() + endDay, 0, date.getMinutes() + endMinute);
-              events.push({
-                  title: 'Event - ' + i,
-                  startTime: startTime,
-                  endTime: endTime,
-                  allDay: false
-              });
-          }
-      }
-      return events;
   }
 
   onRangeChanged(ev) {

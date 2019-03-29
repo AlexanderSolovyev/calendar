@@ -1,15 +1,15 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>{{viewTitle}}</ion-title>
-        <ion-buttons end>
+        <ion-buttons slot="end">
             <button ion-button [disabled]="isToday" (click)="today()">Сегодня</button>
-            <button ion-button (click)="changeMode('month')">M</button>
-            <button ion-button (click)="changeMode('week')">W</button>
-            <button ion-button (click)="changeMode('day')">D</button>
             <button ion-button (click)="loadEvents()">Load Events</button>
+            <ion-button routerLink="/add-event/">
+                <ion-icon slot="icon-only" name="add"></ion-icon>
+            </ion-button>
+
         </ion-buttons>
     </ion-toolbar>
-    <ion-fab-button routerLink="/add-event/" routerDirection="forward">Go to Details with link</ion-fab-button>
 </ion-header>
 
 <ion-content padding>
