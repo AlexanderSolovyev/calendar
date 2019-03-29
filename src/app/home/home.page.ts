@@ -66,7 +66,7 @@ export class HomePage {
 
   onEventSelected(event) {
       console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
-      this.router.navigateByUrl(`/add-event/` + event.id);
+      this.router.navigateByUrl(`/update-event/` + event.id);
   }
 
   changeMode(mode) {

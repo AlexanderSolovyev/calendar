@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start" defaultHref="/home/">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Cпил</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="edit_event_form" (submit)="updateEvent(edit_event_form.value)">
+        <ion-list>
+            <ion-item>
+                <ion-label position="floating">Где пилим</ion-label>
+                <ion-input type="text" formControlName="title" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Что пилим</ion-label>
+                <ion-input type="text" formControlName="description" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">У кого пилим</ion-label>
+                <ion-input type="text" formControlName="name" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Куда звонить</ion-label>
+                <ion-input type="phone" formControlName="phone" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Когда спил </ion-label>
+                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="MM/DD/YYYY" formControlName="startDay" required></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Старт спила</ion-label>
+                <ion-datetime displayFormat="HH:mm" pickerFormat="HH/mm" formControlName="startTime"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Спилу конец</ion-label>
+                <ion-datetime displayFormat="HH:mm" pickerFormat="HH/mm" formControlName="endTime"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!edit_event_form.valid">Записать</ion-button>
+            </ion-item>
+        </ion-list>
+    </form>
+</ion-content>

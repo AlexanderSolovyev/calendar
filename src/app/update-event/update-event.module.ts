@@ -5,23 +5,27 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AddEventPage } from './add-event.page';
+import { UpdateEventPage } from './update-event.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: AddEventPage
-  }
+    component: UpdateEventPage
+  },
+  {
+    path: ':id',
+    component: UpdateEventPage
+  },
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
     ReactiveFormsModule,
+    IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AddEventPage]
+  declarations: [UpdateEventPage]
 })
-export class AddEventPageModule {}
+export class UpdateEventPageModule {}
