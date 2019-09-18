@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ApiService, Event } from '../api.service';
 import { Router } from '@angular/router';
+import { CalendarComponent } from 'ionic2-calendar/calendar';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+    @ViewChild(CalendarComponent) myCalendar:CalendarComponent;
   eventSource;
   viewTitle;
+  selected;
 
   isToday: boolean;
   calendar = {
@@ -48,17 +52,24 @@ export class HomePage {
      private router: Router) {
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
-      this.events = this.apiService.getEvents();
-      this.eventSource = this.events;
+    this.apiService.getEvents().subscribe(res => {
+        this.events = res;
+        this.eventSource = res;
+        console.log(this.events);
+    })
 
   }
+  ionViewWillEnter() {
+    //this.loadEvents();
+  };
 
-  loadEvents() {
-      this.eventSource = this.events;
-      console.log(this.eventSource);
-  }
+//   loadEvents() {
+//     this.events = this.apiService.getEvents();
+//     this.eventSource = this.events;
+//     this.myCalendar.loadEvents();
+//     console.log(this.eventSource);
+//   }
 
   onViewTitleChanged(title) {
       this.viewTitle = title;
@@ -67,6 +78,7 @@ export class HomePage {
   onEventSelected(event) {
       console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
       this.router.navigateByUrl(`/update-event/` + event.id);
+        
   }
 
   changeMode(mode) {
@@ -78,6 +90,7 @@ export class HomePage {
   }
 
   onTimeSelected(ev) {
+      this.apiService.selected=ev.selectedTime;
       console.log('Selected time: ' + ev.selectedTime + ', hasEvents: ' +
           (ev.events !== undefined && ev.events.length !== 0) + ', disabled: ' + ev.disabled);
   }
@@ -98,4 +111,7 @@ export class HomePage {
       current.setHours(0, 0, 0);
       return date < current;
   }
+   onDestroyEvent(event){
+       this.apiService.destroyEvent(event);
+   }
 }

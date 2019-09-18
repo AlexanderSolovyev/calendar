@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface Event {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   name: string;
   phone: string;
-  startTime: Date;
-  endTime: Date;
+  startTime: any;
+  endTime: any;
   allDay: boolean;
 }
 
@@ -15,58 +18,60 @@ export interface Event {
   providedIn: 'root'
 })
 export class ApiService {
-  events: Event[] = [
-{
-  id: '1',
-  title: 'Синявино',
-  description: 'Большая елка',
-  name: 'Алексей',
-  phone: '89117053628',
-  startTime: new Date(),
-  endTime: new Date(),
-  allDay: false
-},
-{
-  id: '2',
-  title: 'Мшинская',
-  description: '3 березы',
-  name: 'Володя',
-  phone: '8921848348348',
-  startTime: new Date(2019, 2, 24, 6, 52),
-  endTime: new Date(2019, 2, 24, 6, 53),
-  allDay: false
-}
-  ];
+  private eventsCollection: AngularFirestoreCollection<Event>;
+  private events: Observable<Event[]>;
 
-  constructor() { }
+  selected: Date;
+
+  constructor(db: AngularFirestore) { 
+    this.eventsCollection = db.collection<Event>('events');
+    this.events = this.eventsCollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map( a => {
+          let data = a.payload.doc.data();
+          data.startTime = data.startTime.toDate();
+          data.endTime = data.endTime.toDate();
+          const id = a.payload.doc.id;
+
+          return { id, ...data };
+        })
+      })
+    )
+  }
 
   getEvents() {
     return this.events;
   }
-
   getEventById(id) {
-    return this.events.filter(event => event.id === id);
+    return this.eventsCollection.doc<Event>(id).valueChanges();
   }
 
   createEvent(event) {
 
-    const randomId = Math.random().toString(36).substr(2, 5);
     const b = (event.startDay.split('-')).concat(event.startTime.split(':'));
     const e = event.startDay.split('-').concat(event.endTime.split(':'));
-    this.events.push({
-      id: randomId,
+    return this.eventsCollection.add({
       title: event.title,
       description: event.description,
       name: event.name,
       phone: event.phone,
       startTime: new Date(b[0], b[1] - 1, b[2], b[3], b[4]),
       endTime: new Date(e[0], e[1] - 1, e[2], e[3], e[4]),
-      allDay: event.allDay
+      allDay: false
     });
   }
+  
+    updateEvent(newValues) {
+        const b = (newValues.startDay.split('-')).concat(newValues.startTime.split(':'));
+        const e = newValues.startDay.split('-').concat(newValues.endTime.split(':'));
+        //const eventIndex = this.events.findIndex(event => event.id === newValues.id);
+        newValues.startTime = new Date(b[0], b[1] - 1, b[2], b[3], b[4]);
+        newValues.endTime = new Date(e[0], e[1] - 1, e[2], e[3], e[4]);
+        newValues.allDay = false;
+        return this.eventsCollection.doc(newValues.id).update(newValues);
+    }
 
-  updateEvent(newValues) {
-    const eventIndex = this.events.findIndex(event => event.id === newValues.id);
-    this.events[eventIndex] = newValues;
-  }
+    destroyEvent(event) {
+      return this.eventsCollection.doc(event.id).delete();
+    }
 }

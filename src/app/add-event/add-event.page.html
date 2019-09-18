@@ -28,15 +28,15 @@
             </ion-item>
             <ion-item>
                 <ion-label position="floating">Когда спил </ion-label>
-                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="MM/DD/YYYY" formControlName="startDay" required></ion-datetime>
+                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD/MMM/YYYY" min="2019" max="2020" formControlName="startDay" required></ion-datetime>
             </ion-item>
             <ion-item>
                 <ion-label position="floating">Старт спила</ion-label>
-                <ion-datetime displayFormat="HH:mm" pickerFormat="HH/mm" formControlName="startTime"></ion-datetime>
+                <ion-datetime displayFormat="HH:mm" pickerFormat="HH/mm" minuteValues="0,15,30,45" formControlName="startTime"></ion-datetime>
             </ion-item>
             <ion-item>
                 <ion-label position="floating">Спилу конец</ion-label>
-                <ion-datetime displayFormat="HH:mm" pickerFormat="HH/mm" formControlName="endTime"></ion-datetime>
+                <ion-datetime displayFormat="HH:mm" pickerFormat="HH/mm" minuteValues="0,15,30,45" formControlName="endTime"></ion-datetime>
             </ion-item>
             <ion-item>
                 <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!new_event_form.valid">Записать</ion-button>

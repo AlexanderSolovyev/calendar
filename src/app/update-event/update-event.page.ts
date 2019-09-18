@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-update-event',
@@ -22,30 +23,34 @@ export class UpdateEventPage implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(
-      data => {
-        this.event = this.apiservice.getEventById(data.id)[0];
-        if (!this.event) {
-          this.goBack();
-        } else {
-          this.edit_event_form = this.formBuilder.group({
-            title: new FormControl(this.event.title, Validators.required),
-            description: new FormControl(this.event.description, Validators.required),
-            name: new FormControl(this.event.name, Validators.required),
-            phone: new FormControl(this.event.phone, Validators.required),
-            startDay: new FormControl(this.event.startDay),
-            startTime: new FormControl(this.event.startTime),
-            endTime: new FormControl(this.event.endTime)
+      res => {
+          console.log(res.id);
+          this.apiservice.getEventById(res.id).
+          subscribe(data =>{
+          console.log('res ' + data.title);
+          this.event = data;
+
+          this.edit_event_form = this.formBuilder.group({ 
+            id: res.id,
+            title: new FormControl(data.title, Validators.required),
+            description: new FormControl(data.description, Validators.required),
+            name: new FormControl(data.name, Validators.required),
+            phone: new FormControl(data.phone, Validators.required),
+            startDay: new FormControl(format(data.startTime.toDate(), 'yyyy-MM-dd')),
+            startTime: new FormControl(format(data.startTime.toDate(), 'HH:mm')),
+            endTime: new FormControl(format(data.endTime.toDate(), 'HH:mm'))
 
           });
-        }
+        
       });
-  }
+    }
+    )}
 
   goBack () {
     this.router.navigate(['/home']);
   }
 
-  updateEvent(event) {
+  updateEvent(event: any) {
     this.apiservice.updateEvent(event);
     this.goBack();
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-add-event',
@@ -12,7 +13,7 @@ export class AddEventPage implements OnInit {
   new_event_form: FormGroup;
 
   constructor(
-    private apiService: ApiService,
+    public apiService: ApiService,
     public formBuilder: FormBuilder,
     private router: Router
     ) {
@@ -24,9 +25,9 @@ export class AddEventPage implements OnInit {
       description: new FormControl('', Validators.required),
       name: new FormControl('', Validators.required),
       phone: new FormControl('', Validators.required),
-      startDay: new FormControl(''),
-      startTime: new FormControl(''),
-      endTime: new FormControl('')
+      startDay: new FormControl(format (this.apiService.selected, 'yyyy-MM-dd')),
+      startTime: new FormControl('09:00'),
+      endTime: new FormControl('12:00')
     });
   }
   createEvent(event) {
