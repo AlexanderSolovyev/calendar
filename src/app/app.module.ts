@@ -17,6 +17,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore'
 import { FcmService } from './fcm.service';
+import { FCM } from '@ionic-native/fcm/ngx';
 registerLocaleData(localeRu);
 
 @NgModule({
@@ -25,6 +26,7 @@ registerLocaleData(localeRu);
   imports: [AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule, NgCalendarModule ],
   providers: [
     FcmService,
+    FCM,
     StatusBar,
     SplashScreen,
     { provide: LOCALE_ID, useValue: 'ru-RU' },
