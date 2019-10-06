@@ -2,7 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { ApiService, Event } from '../api.service';
 import { Router } from '@angular/router';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
-import { Observable } from 'rxjs';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -49,7 +50,9 @@ export class HomePage {
   };
   events: Event[];
   constructor( public apiService: ApiService,
-     private router: Router) {
+     private router: Router,
+     private callNumber: CallNumber,
+     public alertController: AlertController) {
   }
 
   ngOnInit() {
@@ -111,7 +114,37 @@ export class HomePage {
       current.setHours(0, 0, 0);
       return date < current;
   }
-   onDestroyEvent(event){
-       this.apiService.destroyEvent(event);
+   async onDestroyEvent(event){
+
+    const alert = await this.alertController.create({
+        header: 'Э АЛЛО !',
+        message: 'Ты уверен что хочешь удалить спил??',
+        buttons: [
+          {
+            text: 'НЕТ!!!',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (blah) => {
+                
+              console.log('Confirm Cancel: blah');
+            }
+          }, {
+            text: 'Да, нахуй!',
+            handler: () => {
+                this.apiService.destroyEvent(event);
+              console.log('Confirm Okay');
+            }
+          }
+        ]
+      });
+  
+      await alert.present();
+       
+   }
+
+   onCallEvent(event){
+    this.callNumber.callNumber(event.phone, true)
+  .then(res => console.log('Launched dialer!', res))
+  .catch(err => console.log('Error launching dialer', err));
    }
 }
