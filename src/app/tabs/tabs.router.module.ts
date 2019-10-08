@@ -19,9 +19,14 @@ const routes: Routes = [
       },
       
       {
-        path: '',
-        redirectTo: '/tabs/home',
-        pathMatch: 'full'
+        path: 'events',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../events/events.module').then(m => m.EventsPageModule)
+          }
+        ]
       }
     ]
   },

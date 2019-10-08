@@ -3,6 +3,7 @@ import { ApiService } from '../api.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-add-event',
@@ -15,12 +16,14 @@ export class AddEventPage implements OnInit {
   constructor(
     public apiService: ApiService,
     public formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private location: Location
     ) {
   }
 
   ngOnInit() {
     this.new_event_form = this.formBuilder.group({
+      status: new FormControl('success', Validators.required),
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       name: new FormControl('', Validators.required),
@@ -37,7 +40,8 @@ export class AddEventPage implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/home']);
+    this.location.back();
+    //this.router.navigate(['tabs/home']);
   }
 
 

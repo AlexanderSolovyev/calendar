@@ -34,7 +34,7 @@ export class FcmService {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Спил успешно отправлен конкурентам -)',
+      message: 'Спил сохранен',
       duration: 2000
     });
     toast.present();

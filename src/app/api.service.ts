@@ -12,6 +12,7 @@ export interface Event {
   startTime: any;
   endTime: any;
   allDay: boolean;
+  status: string;
 }
 
 @Injectable({
@@ -20,6 +21,7 @@ export interface Event {
 export class ApiService {
   private eventsCollection: AngularFirestoreCollection<Event>;
   private events: Observable<Event[]>;
+  public ev: Event[];
 
   selected: Date;
 
@@ -57,7 +59,8 @@ export class ApiService {
       phone: event.phone,
       startTime: new Date(b[0], b[1] - 1, b[2], b[3], b[4]),
       endTime: new Date(e[0], e[1] - 1, e[2], e[3], e[4]),
-      allDay: false
+      allDay: false,
+      status: event.status
     });
   }
   

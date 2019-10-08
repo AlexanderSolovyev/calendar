@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { format } from 'date-fns';
-
+import { Location } from '@angular/common'
 @Component({
   selector: 'app-update-event',
   templateUrl: './update-event.page.html',
@@ -18,7 +18,8 @@ export class UpdateEventPage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     public formBuilder: FormBuilder,
-    public apiservice: ApiService
+    public apiservice: ApiService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -32,6 +33,7 @@ export class UpdateEventPage implements OnInit {
 
           this.edit_event_form = this.formBuilder.group({ 
             id: res.id,
+            status: new FormControl(data.status),
             title: new FormControl(data.title, Validators.required),
             description: new FormControl(data.description, Validators.required),
             name: new FormControl(data.name, Validators.required),
@@ -47,7 +49,8 @@ export class UpdateEventPage implements OnInit {
     )}
 
   goBack () {
-    this.router.navigate(['/home']);
+    this.location.back();
+    //this.router.navigate(['/home']);
   }
 
   updateEvent(event: any) {

@@ -3,7 +3,7 @@
         <ion-buttons slot="start" defaultHref="/home/">
             <ion-back-button></ion-back-button>
         </ion-buttons>
-        <ion-title>Cпил</ion-title>
+        <ion-title>Редактируем спил</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -11,6 +11,14 @@
     <div *ngIf='event'>
     <form [formGroup]="edit_event_form" (submit)="updateEvent(edit_event_form.value)">
         <ion-list>
+                <ion-item>
+                        <ion-label>Статус</ion-label>
+                        <ion-select  formControlName='status'>
+                          <ion-select-option value="medium">Не подтверждено</ion-select-option>
+                          <ion-select-option value="success">В работу!</ion-select-option>
+                          <ion-select-option value="tertiary">Выполнен</ion-select-option>
+                        </ion-select>
+                      </ion-item>
             <ion-item>
                 <ion-label position="floating">Где пилим</ion-label>
                 <ion-input type="text" formControlName="title" required></ion-input>

@@ -5,8 +5,8 @@
         </ion-fab-button>
       </ion-fab>
 
-    <ion-toolbar color="dark">
-        <ion-title>ЛЕНСПИЛДРЕВ.РФ</ion-title>
+    <ion-toolbar>
+        <ion-title>Календарь</ion-title>
         <ion-buttons slot="end">
             <ion-button [disabled]="isToday" (click)="today()">
             <ion-icon slot="icon-only" name="code"></ion-icon>
@@ -55,9 +55,9 @@
   <ion-item-sliding id="item100" *ngFor="let event of selectedDate?.events">
         <ion-item >
           <ion-label>
-            <h2>{{event.startTime|date: 'HH:mm'}} - {{event.endTime|date: 'HH:mm'}} | {{event.description}}</h2>
-            <p>{{event.title}}</p>
-            <p>{{event.name}} {{event.phone}}</p>
+            <h2 class="ion-text-wrap"><ion-icon name="radio-button-on" [color]="event.status"></ion-icon> {{event.startTime|date: 'HH:mm'}} - {{event.endTime|date: 'HH:mm'}} | {{event.description}}</h2>
+            <p class="ion-text-wrap">{{event.title}}</p>
+            <p class="ion-text-wrap">{{event.name}} {{event.phone}}</p>
           </ion-label>
             
         </ion-item>

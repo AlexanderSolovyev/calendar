@@ -59,6 +59,7 @@ export class HomePage {
     this.apiService.getEvents().subscribe(res => {
         this.events = res;
         this.eventSource = res;
+        this.apiService.ev=res;
         console.log(this.events);
     })
 
@@ -117,11 +118,11 @@ export class HomePage {
    async onDestroyEvent(event){
 
     const alert = await this.alertController.create({
-        header: 'Э АЛЛО !',
-        message: 'Ты уверен что хочешь удалить спил??',
+        header: 'Внимание !',
+        message: 'Ты уверен что хочешь удалить ??',
         buttons: [
           {
-            text: 'НЕТ!!!',
+            text: 'НЕТ',
             role: 'cancel',
             cssClass: 'secondary',
             handler: (blah) => {
@@ -129,7 +130,7 @@ export class HomePage {
               console.log('Confirm Cancel: blah');
             }
           }, {
-            text: 'Да, нахуй!',
+            text: 'Да',
             handler: () => {
                 this.apiService.destroyEvent(event);
               console.log('Confirm Okay');
