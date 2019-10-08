@@ -19,36 +19,45 @@
                         </ion-select>
                       </ion-item>
             <ion-item>
+                    <ion-icon slot="start" color="primary" name="locate"></ion-icon>
                 <ion-label position="floating">Где пилим</ion-label>
                 <ion-input type="text" formControlName="title" required></ion-input>
             </ion-item>
             <ion-item>
+                    <ion-icon slot="start"color="primary"  name="clipboard"></ion-icon>
                 <ion-label position="floating">Что пилим</ion-label>
                 <ion-input type="text" formControlName="description" required></ion-input>
             </ion-item>
             <ion-item>
+                    <ion-icon slot="start" color="primary" name="contact"></ion-icon>
                 <ion-label position="floating">У кого пилим</ion-label>
                 <ion-input type="text" formControlName="name" required></ion-input>
             </ion-item>
             <ion-item>
+                    <ion-icon slot="start" color="primary" name="call"></ion-icon>
                 <ion-label position="floating">Куда звонить</ion-label>
                 <ion-input type="phone" formControlName="phone" required></ion-input>
             </ion-item>
             <ion-item>
+                    <ion-icon slot="start" color="primary" name="calendar"></ion-icon>
                 <ion-label position="floating">Когда спил </ion-label>
                 <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD/MMM/YYYY" min="2019" max="2020" formControlName="startDay" required></ion-datetime>
             </ion-item>
             <ion-item>
+                    <ion-icon slot="start" name="alarm" color="secondary"></ion-icon>
                 <ion-label position="floating">Старт спила</ion-label>
                 <ion-datetime displayFormat="HH:mm" pickerFormat="HH/mm" minuteValues="0,15,30,45" formControlName="startTime"></ion-datetime>
             </ion-item>
             <ion-item>
+                    <ion-icon slot="start" name="stopwatch" color="tertiary"></ion-icon>
                 <ion-label position="floating">Спилу конец</ion-label>
                 <ion-datetime displayFormat="HH:mm" pickerFormat="HH/mm" minuteValues="0,15,30,45" formControlName="endTime"></ion-datetime>
             </ion-item>
             <ion-item>
-                <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!new_event_form.valid">Записать</ion-button>
-            </ion-item>
+            <ion-button class="submit-btn" expand="full" type="submit" [disabled]="!new_event_form.valid">Записать</ion-button>
+        </ion-item>
         </ion-list>
+        
     </form>
+    
 </ion-content>
