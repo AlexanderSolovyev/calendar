@@ -18,4 +18,4 @@ import { TabsPageRoutingModule } from './tabs.router.module';
   ],
   declarations: [TabsPage]
 })
-export class TabsPageModule {}
+export class TabsPageModule { }

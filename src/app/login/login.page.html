@@ -7,14 +7,14 @@
 <ion-content>
   <div class="ion-padding">
     <div *ngIf="user">{{user.l}}</div>
-      <ion-item>
-          <ion-label position="floating">Email</ion-label>
-          <ion-input [(ngModel)]="email"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">password</ion-label>
-            <ion-input [(ngModel)]="password"></ion-input>
-          </ion-item>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">password</ion-label>
+      <ion-input [(ngModel)]="password"></ion-input>
+    </ion-item>
     <ion-button (click)="login()">Press</ion-button>
   </div>
 </ion-content>

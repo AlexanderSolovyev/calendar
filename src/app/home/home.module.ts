@@ -22,4 +22,4 @@ import { NgCalendarModule } from 'ionic2-calendar';
   ],
   declarations: [HomePage]
 })
-export class HomePageModule {}
+export class HomePageModule { }

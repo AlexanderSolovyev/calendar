@@ -17,7 +17,7 @@ const routes: Routes = [
           }
         ]
       },
-      
+
       {
         path: 'events',
         children: [
@@ -41,4 +41,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

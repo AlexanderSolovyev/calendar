@@ -18,7 +18,7 @@ export class AddEventPage implements OnInit {
     public formBuilder: FormBuilder,
     private router: Router,
     private location: Location
-    ) {
+  ) {
   }
 
   ngOnInit() {
@@ -28,14 +28,14 @@ export class AddEventPage implements OnInit {
       description: new FormControl('', Validators.required),
       name: new FormControl('', Validators.required),
       phone: new FormControl('', Validators.required),
-      startDay: new FormControl(format (this.apiService.selected, 'yyyy-MM-dd')),
+      startDay: new FormControl(format(this.apiService.selected, 'yyyy-MM-dd')),
       startTime: new FormControl('09:00'),
       endTime: new FormControl('12:00')
     });
   }
   createEvent(event) {
     this.apiService.createEvent(event);
-    this. new_event_form.reset();
+    this.new_event_form.reset();
     this.goBack();
   }
 

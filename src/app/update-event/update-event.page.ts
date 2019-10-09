@@ -25,32 +25,32 @@ export class UpdateEventPage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       res => {
-          console.log(res.id);
-          this.apiservice.getEventById(res.id).
-          subscribe(data =>{
-          console.log('res ' + data.title);
-          this.event = data;
+        console.log(res.id);
+        this.apiservice.getEventById(res.id).
+          subscribe(data => {
+            console.log('res ' + data.title);
+            this.event = data;
 
-          this.edit_event_form = this.formBuilder.group({ 
-            id: res.id,
-            status: new FormControl(data.status),
-            title: new FormControl(data.title, Validators.required),
-            description: new FormControl(data.description, Validators.required),
-            name: new FormControl(data.name, Validators.required),
-            phone: new FormControl(data.phone, Validators.required),
-            startDay: new FormControl(format(data.startTime.toDate(), 'yyyy-MM-dd')),
-            startTime: new FormControl(format(data.startTime.toDate(), 'HH:mm')),
-            endTime: new FormControl(format(data.endTime.toDate(), 'HH:mm'))
+            this.edit_event_form = this.formBuilder.group({
+              id: res.id,
+              status: new FormControl(data.status),
+              title: new FormControl(data.title, Validators.required),
+              description: new FormControl(data.description, Validators.required),
+              name: new FormControl(data.name, Validators.required),
+              phone: new FormControl(data.phone, Validators.required),
+              startDay: new FormControl(format(data.startTime.toDate(), 'yyyy-MM-dd')),
+              startTime: new FormControl(format(data.startTime.toDate(), 'HH:mm')),
+              endTime: new FormControl(format(data.endTime.toDate(), 'HH:mm'))
+
+            });
 
           });
-        
-      });
-    }
-    )}
+      }
+    )
+  }
 
-  goBack () {
+  goBack() {
     this.location.back();
-    //this.router.navigate(['/home']);
   }
 
   updateEvent(event: any) {
