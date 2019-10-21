@@ -14,11 +14,17 @@
     <ion-item-sliding id="item100" *ngFor="let event of events">
       <ion-item>
         <ion-label>
+            
           <div class="ion-text-center">
             <p>{{event.startTime|date: MMM:DD}}</p>
           </div>
+          <h3 *ngIf="event.status=='uncorfimed'" style="color: grey;">Не подтвержден</h3>
+          <h3 *ngIf="event.status=='call'" style="color: orange;">Позвонить</h3>
+          <h3 *ngIf="event.status=='look'" style="color: brown;">Оценка</h3>
+          <h3 *ngIf="event.status=='work'" style="color: green;">Работаем</h3>
+          <h3 *ngIf="event.status=='completed'" style="color: blue;">Завершен</h3>
           <h2 class="ion-text-wrap">
-            <ion-icon name="radio-button-on" [color]="event.status"></ion-icon> {{event.startTime|date: 'HH:mm'}} -
+            {{event.startTime|date: 'HH:mm'}} -
             {{event.endTime|date: 'HH:mm'}} | {{event.description}}
           </h2>
           <p class="ion-text-wrap">{{event.title}}</p>

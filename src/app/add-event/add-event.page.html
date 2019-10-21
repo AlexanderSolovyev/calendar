@@ -12,10 +12,12 @@
         <ion-list>
             <ion-item>
                 <ion-label>Статус</ion-label>
-                <ion-select value="success" formControlName='status'>
-                    <ion-select-option value="medium">Не подтверждено</ion-select-option>
-                    <ion-select-option value="success">В работу!</ion-select-option>
-                    <ion-select-option value="tertiary">Выполнен</ion-select-option>
+                <ion-select value="work" formControlName='status'>
+                    <ion-select-option value="uncorfimed">Не подтвержден</ion-select-option>
+                        <ion-select-option value="call">Позвонить</ion-select-option>
+                        <ion-select-option value="look">Оценка</ion-select-option>
+                        <ion-select-option value="work">Работаем</ion-select-option>
+                        <ion-select-option value="completed">Выполнен</ion-select-option>
                 </ion-select>
             </ion-item>
             <ion-item>

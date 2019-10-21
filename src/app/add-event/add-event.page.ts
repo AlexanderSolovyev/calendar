@@ -41,7 +41,6 @@ export class AddEventPage implements OnInit {
 
   goBack() {
     this.location.back();
-    //this.router.navigate(['tabs/home']);
   }
 
 
