@@ -14,8 +14,29 @@ exports.newSpilNotification = functions.firestore
         const topic = "note"
         const message = {
             notification: {
-                title: 'ЛАВЭ ПОПЕРЛО!',
-                body: `У нас есть новый спил!`
+                title: e.get('description'),
+                body: e.get('name')+' '+ e.get('title')
+            },
+                topic: topic
+        }
+
+        return admin.messaging().send(message)
+            .then((response) => {
+            // Response is a message ID string.
+            console.log('Successfully sent message:', response);
+            })
+            .catch((error) => {
+            console.log('Error sending message:', error);
+            });
+    });
+    exports.updateSpilNotification = functions.firestore
+    .document('events/{eventId}')
+    .onUpdate(async e => {
+        const topic = "note"
+        const message = {
+            notification: {
+                title: e.after.get('description'),
+                body: 'спил изменен'
             },
                 topic: topic
         }

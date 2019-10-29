@@ -23,7 +23,7 @@ export class AddEventPage implements OnInit {
 
   ngOnInit() {
     this.new_event_form = this.formBuilder.group({
-      status: new FormControl('success', Validators.required),
+      status: new FormControl('work', Validators.required),
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       name: new FormControl('', Validators.required),
