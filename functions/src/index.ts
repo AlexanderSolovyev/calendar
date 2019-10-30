@@ -50,3 +50,25 @@ exports.newSpilNotification = functions.firestore
             console.log('Error sending message:', error);
             });
     });
+
+    exports.deleteSpilNotification = functions.firestore
+    .document('events/{eventId}')
+    .onDelete(async e => {
+        const topic = "note"
+        const message = {
+            notification: {
+                title:  e.get('description'),
+                body: 'спил удален'
+            },
+                topic: topic
+        }
+
+        return admin.messaging().send(message)
+            .then((response) => {
+            // Response is a message ID string.
+            console.log('Successfully sent message:', response);
+            })
+            .catch((error) => {
+            console.log('Error sending message:', error);
+            });
+    });
