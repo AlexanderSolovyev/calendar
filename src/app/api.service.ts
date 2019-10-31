@@ -41,7 +41,12 @@ export class ApiService {
         })
       })
     )
+    this.getEvents().subscribe(res => {
+      this.ev = res;
+      console.log(this.ev);
+    })
   }
+ 
 
   getEvents() {
     return this.events;
@@ -49,22 +54,6 @@ export class ApiService {
   getEventById(id) {
     return this.eventsCollection.doc<Event>(id).valueChanges();
   }
-
-  // createEvent(event) {
-
-  //   const b = (event.startDay.split('-')).concat(event.startTime.split(':'));
-  //   const e = event.startDay.split('-').concat(event.endTime.split(':'));
-  //   return this.eventsCollection.add({
-  //     title: event.title,
-  //     description: event.description,
-  //     name: event.name,
-  //     phone: event.phone,
-  //     startTime: new Date(b[0], b[1] - 1, b[2], b[3], b[4]),
-  //     endTime: new Date(e[0], e[1] - 1, e[2], e[3], e[4]),
-  //     allDay: false,
-  //     status: event.status
-  //   });
-  // }
 
   createEvent(event) {
     return this.eventsCollection.add({
