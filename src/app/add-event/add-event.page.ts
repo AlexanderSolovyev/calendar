@@ -7,12 +7,11 @@ import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-add-event',
-  templateUrl: './add-event.page.html',
+  templateUrl: '../update-event/update-event.page.html',
   styleUrls: ['./add-event.page.scss'],
 })
 export class AddEventPage implements OnInit {
-  new_event_form: FormGroup;
-
+  event_form: FormGroup;
   constructor(
     public apiService: ApiService,
     public formBuilder: FormBuilder,
@@ -22,7 +21,7 @@ export class AddEventPage implements OnInit {
   }
 
   ngOnInit() {
-    this.new_event_form = this.formBuilder.group({
+    this.event_form = this.formBuilder.group({
       status: new FormControl('work', Validators.required),
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
@@ -33,9 +32,9 @@ export class AddEventPage implements OnInit {
       endTime: new FormControl('12:00')
     });
   }
-  createEvent(event) {
+  ucEvent(event) {
     this.apiService.createEvent(event);
-    this.new_event_form.reset();
+    this.event_form.reset();
     this.goBack();
   }
 

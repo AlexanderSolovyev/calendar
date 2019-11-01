@@ -11,8 +11,7 @@ import { Location } from '@angular/common'
 })
 export class UpdateEventPage implements OnInit {
 
-  event: any;
-  edit_event_form: FormGroup;
+  event_form: FormGroup;
 
   constructor(
     private router: Router,
@@ -29,9 +28,9 @@ export class UpdateEventPage implements OnInit {
         this.apiservice.getEventById(res.id).
           subscribe(data => {
             console.log('res ' + data.title);
-            this.event = data;
-            console.log(this.event);
-            this.edit_event_form = this.formBuilder.group({
+            //this.event = data;
+            //console.log(this.event);
+            this.event_form = this.formBuilder.group({
               id: res.id,
               status: new FormControl(data.status),
               title: new FormControl(data.title, Validators.required),
@@ -53,7 +52,7 @@ export class UpdateEventPage implements OnInit {
     this.location.back();
   }
 
-  updateEvent(event: any) {
+  ucEvent(event: any) {
     this.apiservice.updateEvent(event);
     this.goBack();
   }

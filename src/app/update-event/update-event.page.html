@@ -8,12 +8,11 @@
 </ion-header>
 
 <ion-content padding>
-    <div *ngIf='event'>
-        <form [formGroup]="edit_event_form" (submit)="updateEvent(edit_event_form.value)">
+        <form *ngIf='event_form' [formGroup]="event_form" (submit)="ucEvent(event_form.value)">
             <ion-list>
                 <ion-item>
                     <ion-label>Статус</ion-label>
-                    <ion-select [value]="event.status" formControlName='status'>
+                    <ion-select  formControlName='status'>
                         <ion-select-option value="uncorfimed">Не подтвержден</ion-select-option>
                         <ion-select-option value="call">Позвонить</ion-select-option>
                         <ion-select-option value="look">Оценка</ion-select-option>
@@ -60,10 +59,9 @@
                         formControlName="endTime"></ion-datetime>
                 </ion-item>
                 <ion-item>
-                    <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!edit_event_form.valid">
+                    <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!event_form.valid">
                         Записать</ion-button>
                 </ion-item>
             </ion-list>
         </form>
-    </div>
 </ion-content>
