@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { format } from 'date-fns';
 import { Location } from "@angular/common";
 
@@ -15,7 +14,6 @@ export class AddEventPage implements OnInit {
   constructor(
     public apiService: ApiService,
     public formBuilder: FormBuilder,
-    private router: Router,
     private location: Location
   ) {
   }
