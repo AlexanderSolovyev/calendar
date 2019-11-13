@@ -6,9 +6,11 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 import { NgCalendarModule } from 'ionic2-calendar';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
+    ComponentsModule,
     CommonModule,
     FormsModule,
     IonicModule,
