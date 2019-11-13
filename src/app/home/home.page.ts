@@ -1,9 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ApiService, Event } from '../api.service';
-import { Router } from '@angular/router';
+
 import { CalendarComponent } from 'ionic2-calendar/calendar';
-import { CallNumber } from '@ionic-native/call-number/ngx';
-import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -49,11 +47,9 @@ export class HomePage {
     }
   };
   events: Event[];
-  constructor(public apiService: ApiService,
-    private router: Router,
-    private callNumber: CallNumber,
-    public alertController: AlertController) {
-  }
+  constructor(
+    public apiService: ApiService
+  ) { }
 
   ngOnInit() {
     this.apiService.getEvents().subscribe(res => {
@@ -62,20 +58,12 @@ export class HomePage {
       this.apiService.ev = res;
       console.log(this.events);
     })
-
   }
   ionViewWillEnter() {
   }
 
-  
   onViewTitleChanged(title) {
     this.viewTitle = title;
-  }
-
-  onEventSelected(event) {
-    console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
-    this.router.navigateByUrl(`/update-event/` + event.id);
-
   }
 
   changeMode(mode) {
@@ -107,36 +95,5 @@ export class HomePage {
     const current = new Date();
     current.setHours(0, 0, 0);
     return date < current;
-  }
-  async onDestroyEvent(event) {
-
-    const alert = await this.alertController.create({
-      header: 'Внимание !',
-      message: 'Ты уверен что хочешь удалить ??',
-      buttons: [
-        {
-          text: 'НЕТ',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-
-            console.log('Confirm Cancel: blah');
-          }
-        }, {
-          text: 'Да',
-          handler: () => {
-            this.apiService.destroyEvent(event);
-            console.log('Confirm Okay');
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
-
-  onCallEvent(event) {
-    this.callNumber.callNumber(event.phone, true)
-      .then(res => console.log('Launched dialer!', res))
-      .catch(err => console.log('Error launching dialer', err));
   }
 }

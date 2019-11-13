@@ -1,10 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService, Event } from '../api.service';
 import { IonContent } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { CallNumber } from '@ionic-native/call-number/ngx';
-import { AlertController } from '@ionic/angular';
-
 
 @Component({
   selector: 'app-events',
@@ -16,12 +12,9 @@ export class EventsPage implements OnInit {
   @ViewChild(IonContent) content: IonContent
 
   events: Event[];
-  constructor(private apiService: ApiService,
-    private router: Router,
-    private callNumber: CallNumber,
-    public alertController: AlertController) {
-
-  }
+  constructor(
+    private apiService: ApiService,
+  ) { }
 
   ngOnInit() {
     this.events = this.apiService.ev.sort((a, b) => { return a.startTime - b.startTime });
@@ -31,48 +24,8 @@ export class EventsPage implements OnInit {
       this.apiService.ev = res;
       console.log(this.events);
     })
-
   }
   ionViewWillEnter() {
     this.content.scrollToBottom(0)
   }
-
-  onEventSelected(event) {
-    console.log('Event selected:' + event.startTime + '-' + event.endTime + ',' + event.title);
-    this.router.navigateByUrl(`/update-event/` + event.id);
-  }
-  async onDestroyEvent(event) {
-
-    const alert = await this.alertController.create({
-      header: 'Предупреждение!',
-      message: 'Удалить спил??',
-      buttons: [
-        {
-          text: 'Нет',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-
-            console.log('Confirm Cancel: blah');
-          }
-        }, {
-          text: 'Да',
-          handler: () => {
-            this.apiService.destroyEvent(event);
-            console.log('Confirm Okay');
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-
-  }
-
-  onCallEvent(event) {
-    this.callNumber.callNumber(event.phone, true)
-      .then(res => console.log('Launched dialer!', res))
-      .catch(err => console.log('Error launching dialer', err));
-  }
-
 }

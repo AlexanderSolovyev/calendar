@@ -23,7 +23,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 registerLocaleData(localeRu);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent ],
   entryComponents: [],
   imports: [AngularFireModule.initializeApp(environment.firebase), 
     AngularFirestoreModule, 
