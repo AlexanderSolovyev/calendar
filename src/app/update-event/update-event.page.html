@@ -59,6 +59,11 @@
                         formControlName="endTime"></ion-datetime>
                 </ion-item>
                 <ion-item>
+                    <ion-icon slot="start" name="logo-usd" color="primary"></ion-icon>
+                    <ion-label position="floating">Цена</ion-label>
+                    <ion-input type="number" formControlName="price"></ion-input>
+                </ion-item>
+                <ion-item>
                     <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!event_form.valid">
                         Записать</ion-button>
                 </ion-item>

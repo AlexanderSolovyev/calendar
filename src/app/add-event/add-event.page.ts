@@ -27,7 +27,8 @@ export class AddEventPage implements OnInit {
       phone: new FormControl('', Validators.required),
       startDay: new FormControl(format(this.apiService.selected, 'yyyy-MM-dd')),
       startTime: new FormControl('09:00'),
-      endTime: new FormControl('12:00')
+      endTime: new FormControl('12:00'),
+      price: new FormControl('')
     });
   }
   ucEvent(event) {

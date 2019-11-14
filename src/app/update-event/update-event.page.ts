@@ -39,7 +39,8 @@ export class UpdateEventPage implements OnInit {
               phone: new FormControl(data.phone, Validators.required), 
               startDay: new FormControl(format(data.startTime.toDate(), 'yyyy-MM-dd')),
               startTime: new FormControl(format(data.startTime.toDate(), 'HH:mm')),
-              endTime: new FormControl(format(data.endTime.toDate(), 'HH:mm'))
+              endTime: new FormControl(format(data.endTime.toDate(), 'HH:mm')),
+              price: new FormControl(data.price)
  
             });
 

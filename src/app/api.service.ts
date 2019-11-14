@@ -15,6 +15,7 @@ export interface Event {
   endTime: any;
   allDay: boolean;
   status: string;
+  price: string;
 }
 
 @Injectable({
@@ -64,7 +65,8 @@ export class ApiService {
       startTime: parse(event.startDay.split("T",1)[0]+'-'+ event.startTime,'yyyy-MM-d-H:mm',new Date()),
       endTime: parse(event.startDay.split("T",1)[0]+'-'+ event.endTime,'yyyy-MM-d-H:mm',new Date()),
       allDay: false,
-      status: event.status
+      status: event.status,
+      price: event.price
     });
   }
   
