@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ApiService, Event } from '../api.service';
+import { Platform } from '@ionic/angular';
 
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 
@@ -14,6 +15,7 @@ export class HomePage {
   viewTitle;
   selected;
   isToday: boolean;
+  subscription;
 
   calendar = {
     locale: 'ru-Ru',
@@ -48,7 +50,8 @@ export class HomePage {
   };
   events: Event[];
   constructor(
-    public apiService: ApiService
+    public apiService: ApiService,
+    private platform: Platform
   ) { }
 
   ngOnInit() {
@@ -59,8 +62,16 @@ export class HomePage {
       console.log(this.events);
     })
   }
-  ionViewWillEnter() {
-  }
+
+  ionViewDidEnter(){
+    this.subscription = this.platform.backButton.subscribe(()=>{
+        navigator['app'].exitApp();
+    });
+}
+
+ionViewWillLeave(){
+    this.subscription.unsubscribe();
+}
 
   onViewTitleChanged(title) {
     this.viewTitle = title;
